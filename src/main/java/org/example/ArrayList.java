@@ -63,4 +63,11 @@ public class ArrayList {
         data = tempArray;
     }
 
+    public int get(int i){
+        if(i < 0 || i > data.length){
+            throw new ArrayIndexOutOfBoundsException("Array Index Out of Bounds!");
+        }
+        return data[i];
+    }
+
 }
