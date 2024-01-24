@@ -1,41 +1,66 @@
 package org.example;
 public class ArrayList {
 
-    private int fixed;
-    private int[] data;
-    private int num_elements;
+    private int [] data;
+    private int numElements;
+    private int capacity = 10;
+    private int expansionFactor = 10;
+    private static final int MAX_EXPANSION = 10000;
+    private static final int MIN_EXPANSION = 0;
+    private static final int MAX_INITIAL_CAPACITY = 10000;
 
-    public void List(){
-        fixed = 10;
-        data = new int[10];
+    public ArrayList(int capacity){
+        if (capacity <= MAX_INITIAL_CAPACITY && capacity > 0){
+            this.capacity = capacity;
+        } else if (capacity > MAX_INITIAL_CAPACITY) {
+            this.capacity = MAX_INITIAL_CAPACITY;
+        }
+        data = new int[capacity];
     }
 
-    public void List(int growValue){
-        fixed = growValue;
-        data = new int[10];
+    public ArrayList(int capacity, int expansionFactor){
+        if (capacity <= MAX_INITIAL_CAPACITY && capacity > 0){
+            this.capacity = capacity;
+        } else if (capacity > MAX_INITIAL_CAPACITY) {
+            this.capacity = MAX_INITIAL_CAPACITY;
+        }
+        if(expansionFactor <= MAX_EXPANSION && expansionFactor > MIN_EXPANSION){
+            this.expansionFactor = expansionFactor;
+        } else if (expansionFactor > MAX_EXPANSION || expansionFactor < MIN_EXPANSION){
+            this.expansionFactor = MAX_EXPANSION;
+        }
+        data = new int[capacity];
+    }
+
+    public ArrayList(){
+        capacity = 10;
+        data = new int[capacity];
     }
 
     public int size(){
-        return num_elements;
+        return numElements;
     }
 
-    public void add(int number){
-        if(num_elements == data.length){
+    public void add(int num){
+        if(numElements == data.length){
             grow();
         }
-        data[num_elements] = number;
-        num_elements++;
+
+        data[numElements] = num;
+        numElements++;
     }
 
-    private int[] grow(){
-        int[] junk = new int[data.length + fixed];
-
+    // Grow
+    // create new array with X extra slots
+    // loop through original array and copy to new array
+    // Replace the original array with the new one
+    private void grow(){
+        int [] tempArray = new int[data.length + 10];
         for(int i = 0; i < data.length; i++){
-            junk[i] = data[i];
+            tempArray[i] = data[i];
         }
 
-        data = junk;
-
-        return data;
+        data = tempArray;
     }
+
 }
