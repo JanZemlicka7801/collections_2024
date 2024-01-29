@@ -41,15 +41,6 @@ public class ArrayList {
         return numElements;
     }
 
-    public void add(int num){
-        if(numElements == data.length){
-            grow();
-        }
-
-        data[numElements] = num;
-        numElements++;
-    }
-
     // Grow
     // create new array with X extra slots
     // loop through original array and copy to new array
@@ -64,10 +55,19 @@ public class ArrayList {
     }
 
     public int get(int i){
-        if(i < 0 || i > data.length){
+        if(i < 0 || i >= data.length)
             throw new ArrayIndexOutOfBoundsException("Array Index Out of Bounds!");
-        }
         return data[i];
+    }
+
+    public void add(int num){
+        if (numElements == data.length){
+            grow();
+            int [] duplicatedData = new int [data.length+expansionFactor];
+            System.arraycopy(data, 5, data, 4, numElements - 5);
+        }
+        data[numElements] = num;
+        numElements++;
     }
 
 }
